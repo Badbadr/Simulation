@@ -32,6 +32,7 @@ public abstract class Creature extends Entity {
                     } else if (this instanceof Herbivore) {
                         if (entity instanceof Grass) {
                             this.eat(entity);
+                            ((Grass) entity).eaten();
                         }
                     }
                 } else {
