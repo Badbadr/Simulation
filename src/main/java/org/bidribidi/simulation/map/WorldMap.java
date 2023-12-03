@@ -9,10 +9,10 @@ import org.bidribidi.simulation.util.EntityMapper;
 import java.util.*;
 
 @AllArgsConstructor
-public class WorldMap implements IWorldMap {
+public class WorldMap {
 
     @Getter
-    private Map<Coordinates, Entity> mapOfSimulation;
+    private static Map<Coordinates, Entity> mapOfSimulation;
 
     public WorldMap(char[][] srcArray) {
         mapOfSimulation = new HashMap<>();
@@ -23,13 +23,15 @@ public class WorldMap implements IWorldMap {
         }
     }
 
-    @Override
-    public <T extends Entity> Collection<Coordinates> findPath(Coordinates root, Class<T> target)
+    public static Entity getEntityByCoordinates(Coordinates coordinates) {
+        return mapOfSimulation.get(coordinates);
+    }
+    public static <T extends Entity> LinkedList<Coordinates> findPath(Coordinates root, Class<T> target)
             throws NoSuchElementException
     {
         Map<Coordinates, Coordinates> childToParent = new HashMap<>();
         LinkedList<Coordinates> queue = new LinkedList<>();
-        Collection<Coordinates> markedPoints = new HashSet<>();
+        Set<Coordinates> markedPoints = new HashSet<>();
         Coordinates targetCoordinates = null;
         LinkedList<Coordinates> path = new LinkedList<>();
 
@@ -65,8 +67,8 @@ public class WorldMap implements IWorldMap {
         return path;
     }
 
-    public Collection<Coordinates> getNeighbourCoordinatesOnMap(Coordinates start) {
-        Collection<Coordinates> res = new HashSet<>();
+    private static Collection<Coordinates> getNeighbourCoordinatesOnMap(Coordinates start) {
+        Set<Coordinates> res = new HashSet<>();
 
         for (Coordinates coord: start.getNeighbourCoordinates()) {
             if (mapOfSimulation.get(coord) != null) {
