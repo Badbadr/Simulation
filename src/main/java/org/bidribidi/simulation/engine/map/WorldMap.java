@@ -1,31 +1,60 @@
-package org.bidribidi.simulation.map;
+package org.bidribidi.simulation.engine.map;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.bidribidi.simulation.entities.Entity;
-import org.bidribidi.simulation.entities.Rock;
-import org.bidribidi.simulation.util.EntityMapper;
+import org.bidribidi.simulation.engine.entities.Creature;
+import org.bidribidi.simulation.engine.entities.Entity;
+import org.bidribidi.simulation.engine.entities.Rock;
+import org.bidribidi.simulation.engine.entities.Tree;
+import org.bidribidi.simulation.engine.util.EntityMapper;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public class WorldMap {
 
     @Getter
-    private static Map<Coordinates, Entity> mapOfSimulation;
+    private static Map<Coordinates, List<Entity>> mapOfSimulation;
 
     public WorldMap(char[][] srcArray) {
         mapOfSimulation = new HashMap<>();
         for (int i = 0; i < srcArray.length; i++) {
             for (int j = 0; j < srcArray[i].length; j++) {
-                mapOfSimulation.put(new Coordinates(i, j), EntityMapper.map(srcArray[i][j]));
+                mapOfSimulation.put(new Coordinates(i, j), List.of(EntityMapper.map(srcArray[i][j])));
             }
         }
     }
 
-    public static Entity getEntityByCoordinates(Coordinates coordinates) {
+    public static void addEntity(Coordinates coordinates, Entity entity) {
+        mapOfSimulation.get(coordinates).add(entity);
+    }
+
+    public static Collection<Creature> getCreatures() {
+        return mapOfSimulation.values().stream().filter(entity -> entity instanceof Creature)
+                .map(entity -> (Creature) entity).collect(Collectors.toSet());
+    }
+
+    public static List<Entity> getEntityByCoordinates(Coordinates coordinates) {
         return mapOfSimulation.get(coordinates);
     }
+
+    public static void updateEntityCoordinates(Entity entity, Coordinates oldCoordinates, Coordinates newCoordinates) {
+        List<Entity> entities = mapOfSimulation.get(oldCoordinates);
+        Entity creature;
+        for (Entity value : entities) {
+            if (value.equals(entity)) {
+                creature = value;
+            }
+        }
+        entities.remove(entity);
+        mapOfSimulation.get(newCoordinates).add(entity);
+    }
+
+    public static void removeEntityByCoordinates(Entity entity, Coordinates coordinates) {
+        mapOfSimulation.get(coordinates).remove(entity);
+    }
+
     public static <T extends Entity> LinkedList<Coordinates> findPath(Coordinates root, Class<T> target)
             throws NoSuchElementException
     {
@@ -47,7 +76,10 @@ public class WorldMap {
                 break;
             }
             getNeighbourCoordinatesOnMap(current).forEach(neighbour -> {
-                if (!markedPoints.contains(neighbour) && !mapOfSimulation.get(neighbour).getClass().equals(Rock.class)) {
+                if (!markedPoints.contains(neighbour) &&
+                        (!mapOfSimulation.get(neighbour).getClass().equals(Rock.class) &&
+                        !mapOfSimulation.get(neighbour).getClass().equals(Tree.class))
+                ) {
                     childToParent.put(neighbour, current);
                     queue.add(neighbour);
                 }

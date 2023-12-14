@@ -1,10 +1,10 @@
-package org.bidribidi.simulation.entities;
+package org.bidribidi.simulation.engine.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.bidribidi.simulation.map.Coordinates;
-import org.bidribidi.simulation.map.WorldMap;
+import org.bidribidi.simulation.engine.map.Coordinates;
+import org.bidribidi.simulation.engine.map.WorldMap;
 
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Predator extends Creature {
-    private int hitPower;
+    private int hitPower = 1;
 
     @Override
     public LinkedList<Coordinates> findFood() throws NoSuchElementException {
@@ -21,13 +21,13 @@ public class Predator extends Creature {
     }
 
     @Override
-    public void eat(Entity food) {
-        this.healthPoint += 1;
-    }
-
-    @Override
-    public boolean validateFood(Entity possibleFood) {
-        return validateFood(possibleFood) && possibleFood instanceof Herbivore;
+    public <T extends Eatable> void eat(T food) {
+        if (food instanceof Herbivore && !food.eaten()) {
+            attack((Creature) food);
+        }
+        if (food.eaten()) {
+            this.healthPoint += 1;
+        }
     }
 
     public void attack(Creature attackedCreature) {

@@ -1,12 +1,11 @@
-package org.bidribidi.simulation.entities;
+package org.bidribidi.simulation.engine.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.bidribidi.simulation.map.Coordinates;
-import org.bidribidi.simulation.map.WorldMap;
+import org.bidribidi.simulation.engine.map.Coordinates;
+import org.bidribidi.simulation.engine.map.WorldMap;
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
@@ -22,19 +21,16 @@ public class Herbivore extends Creature implements Eatable {
     }
 
     @Override
-    public void eat(Entity food) {
-        this.healthPoint += 1;
-    }
-
-    @Override
-    public boolean validateFood(Entity possibleFood) {
-        return possibleFood instanceof Grass;
-    }
-
-    @Override
     public void loseHealth(int healthPoint) {
         super.loseHealth(healthPoint);
+    }
 
+    @Override
+    public <T extends Eatable> void eat(T food) {
+        if (food instanceof Grass) {
+            this.healthPoint += 1;
+            food.eaten();
+        }
     }
 
     @Override

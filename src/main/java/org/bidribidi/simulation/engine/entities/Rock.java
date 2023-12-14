@@ -1,4 +1,4 @@
-package org.bidribidi.simulation.entities;
+package org.bidribidi.simulation.engine.entities;
 
 import lombok.EqualsAndHashCode;
 

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import org.bidribidi.simulation.renderer.controller.GameWindow?>
+<?import org.bidribidi.simulation.renderer.controller.ControlBar?>
+
+<VBox xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.bidribidi.simulation.renderer.controller.MainSceneController"
+>
+    <ControlBar style="-fx-background-color: #00900F;" layoutX="5.0" layoutY="4.0" />
+    <GameWindow id="game_window" style="-fx-background-color: #FF0000;" layoutX="5.0" layoutY="4.0" />
+</VBox>

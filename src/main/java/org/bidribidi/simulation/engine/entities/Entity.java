@@ -1,7 +1,7 @@
-package org.bidribidi.simulation.entities;
+package org.bidribidi.simulation.engine.entities;
 
 import lombok.*;
-import org.bidribidi.simulation.map.Coordinates;
+import org.bidribidi.simulation.engine.map.Coordinates;
 
 @AllArgsConstructor
 @NoArgsConstructor

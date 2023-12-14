@@ -1,9 +1,8 @@
-package org.bidribidi.simulation.map;
+package org.bidribidi.simulation.engine.map;
 
 import lombok.*;
 
 import java.util.Collection;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 

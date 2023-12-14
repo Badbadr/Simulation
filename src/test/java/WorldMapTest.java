@@ -1,6 +1,6 @@
-import org.bidribidi.simulation.entities.Herbivore;
-import org.bidribidi.simulation.map.Coordinates;
-import org.bidribidi.simulation.map.WorldMap;
+import org.bidribidi.simulation.engine.entities.Herbivore;
+import org.bidribidi.simulation.engine.map.Coordinates;
+import org.bidribidi.simulation.engine.map.WorldMap;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

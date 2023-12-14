@@ -1,0 +1,8 @@
+#game_window {
+    -fx-background-image: url("../images/map.png") no-repeat center center fixed;
+    -fx-background-size: cover;
+    -fx-min-height: 500px;
+    -fx-min-width: 500px;
+    size: cover;
+
+}
