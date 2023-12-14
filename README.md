@@ -1,0 +1,1 @@
+Educational project (Java, JavaFX)
