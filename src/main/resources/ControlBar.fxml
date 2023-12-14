@@ -4,9 +4,41 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <fx:root type="HBox" xmlns="http://javafx.com/javafx"
          xmlns:fx="http://javafx.com/fxml"
 >
     <ToggleButton fx:id="toggleButton" onAction="#start"> Start </ToggleButton>
     <Button fx:id="restartButton" onAction="#restart" text="Restart"/>
+    <Button fx:id="previousRound" onAction="#backToOneRound">
+        <graphic>
+            <ImageView fitHeight="20" fitWidth="20">
+                <Image url="images/buttons/previousRoundImage.png"/>
+            </ImageView>
+        </graphic>
+    </Button>
+    <Button fx:id="previousMove" onAction="#backToOneMove">
+        <graphic>
+            <ImageView fitHeight="20" fitWidth="20">
+                <Image url="images/buttons/previousMoveImage.png"/>
+            </ImageView>
+        </graphic>
+    </Button>
+    <TextField fx:id="moveCount" disable="true"/>
+    <Button fx:id="nextMove" onAction="#forwardToOneMove">
+        <graphic>
+            <ImageView fitHeight="20" fitWidth="20">
+                <Image url="images/buttons/nextRoundImage.png"/>
+            </ImageView>
+        </graphic>
+    </Button>
+    <Button fx:id="nextRound" onAction="#forwardToOneRound">
+        <graphic>
+            <ImageView fitHeight="20" fitWidth="20">
+                <Image url="images/buttons/nextRoundImage.png"/>
+            </ImageView>
+        </graphic>
+    </Button>
 </fx:root>

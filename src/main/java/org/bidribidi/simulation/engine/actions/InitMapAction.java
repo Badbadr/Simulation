@@ -7,7 +7,7 @@ import java.util.Set;
 
 import static org.bidribidi.simulation.engine.util.EntityMapper.getRandomEntity;
 
-public class AddRandomEntityAction extends Action {
+public class InitMapAction extends Action {
 
     @Override
     public void act(WorldMap map) {

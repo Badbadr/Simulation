@@ -1,27 +1,33 @@
 package org.bidribidi.simulation.engine;
 
-import lombok.NoArgsConstructor;
-import org.bidribidi.simulation.engine.MoveCounter;
-import org.bidribidi.simulation.engine.Simulation;
-import org.bidribidi.simulation.engine.actions.Actions;
+import org.bidribidi.simulation.engine.actions.Action;
+import org.bidribidi.simulation.engine.actions.InitMapAction;
+import org.bidribidi.simulation.engine.actions.MakeMoveAction;
 import org.bidribidi.simulation.engine.map.WorldMap;
 import org.bidribidi.simulation.renderer.Renderer;
 
 import java.util.List;
 
-@NoArgsConstructor
 public class SimulationImpl implements Simulation {
+    private static Simulation singletone;
     private WorldMap map;
     private MoveCounter moveCounter;
     private Renderer renderer;
-    private List<Actions> initActions;
-    private List<Actions> turnActions;
+    private List<Action> initActions = List.of(new InitMapAction());
+    private List<Action> turnActions = List.of(new MakeMoveAction());
+
+    public static Simulation getInstance() {
+        if (singletone == null) {
+            singletone = new SimulationImpl();
+        }
+        return singletone;
+    }
 
     @Override
     public void startSimulation() {
         // initialize init actions
-        for (Actions actions: initActions) {
-
+        for (Action action: initActions) {
+            action.act(map);
         }
     }
 
@@ -32,6 +38,9 @@ public class SimulationImpl implements Simulation {
 
     @Override
     public void nextTurn() {
+        for (Action action: turnActions) {
+            action.act(map);
+        }
         moveCounter.increment();
     }
 }
