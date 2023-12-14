@@ -30,7 +30,7 @@
     <Button fx:id="nextMove" onAction="#forwardToOneMove">
         <graphic>
             <ImageView fitHeight="20" fitWidth="20">
-                <Image url="images/buttons/nextRoundImage.png"/>
+                <Image url="images/buttons/nextMoveImage.png"/>
             </ImageView>
         </graphic>
     </Button>
