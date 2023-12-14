@@ -12,7 +12,6 @@ public class ControlBar extends HBox {
 
     @FXML
     private ToggleButton toggleButton;
-
     @FXML
     private Button restartButton;
 
@@ -29,10 +28,12 @@ public class ControlBar extends HBox {
     }
 
     public void start() {
-        toggleButton.fire();
-        if (toggleButton.isSelected()) {
-            toggleButton.setText("Stop");
-        }
+        toggleButton.setText(toggleButton.isSelected()? "Stop": "Start");
+    }
+
+    public void restart() {
+        toggleButton.setSelected(false);
+        toggleButton.setText("Start");
     }
 
 }

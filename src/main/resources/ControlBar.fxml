@@ -8,5 +8,5 @@
          xmlns:fx="http://javafx.com/fxml"
 >
     <ToggleButton fx:id="toggleButton" onAction="#start"> Start </ToggleButton>
-
+    <Button fx:id="restartButton" onAction="#restart" text="Restart"/>
 </fx:root>
