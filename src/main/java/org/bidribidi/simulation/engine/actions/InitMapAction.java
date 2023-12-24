@@ -14,6 +14,6 @@ public class InitMapAction extends Action {
         Set<Coordinates> keys = WorldMap.getMapOfSimulation().keySet();
         int randimI = new Random().ints(0, keys.size()).findFirst().getAsInt();
         Coordinates randCoord = (Coordinates) keys.toArray()[randimI];
-        WorldMap.addEntity(randCoord, getRandomEntity());
+        WorldMap.addEntity(randCoord, getRandomEntity(randCoord));
     }
 }

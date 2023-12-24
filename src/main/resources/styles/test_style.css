@@ -4,5 +4,10 @@
     -fx-min-height: 500px;
     -fx-min-width: 500px;
     size: cover;
+}
 
+.cell {
+    /* 1 pixel border around the left and bottom of each cell: */
+    -fx-background-color: cell-border-color, cell-color ;
+    -fx-background-insets: 0, 0 0 1 1 ;
 }

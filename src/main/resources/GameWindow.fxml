@@ -2,11 +2,9 @@
 
 <?import javafx.scene.layout.*?>
 
-<?import javafx.scene.control.Button?>
 
 <fx:root type="javafx.scene.layout.StackPane"
          xmlns:fx="http://javafx.com/fxml"
 >
-    <GridPane />
-    <Button fx:id="button">Click Me!</Button>
+    <GridPane fx:id="gridPane"/>
 </fx:root>

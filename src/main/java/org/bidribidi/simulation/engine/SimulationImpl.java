@@ -24,8 +24,19 @@ public class SimulationImpl implements Simulation {
     }
 
     @Override
+    public WorldMap getMap() {
+        return this.map;
+    }
+
+    @Override
     public void startSimulation() {
         // initialize init actions
+        char[][] initMap = {
+                {'-', 'r', 'h'},
+                {'t', '-', '-'},
+                {'p', 'g', '-'}
+        };
+        map = new WorldMap(initMap);
         for (Action action: initActions) {
             action.act(map);
         }
