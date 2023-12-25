@@ -40,25 +40,20 @@ public class GameWindow extends StackPane implements Initializable {
     }
 
     private ImageView getImageView(Entity entity) {
-        ImageView imageView;
+        ImageView imageView = new ImageView();
         Image image;
         if (entity instanceof Predator) {
-            System.out.println("Predator");
             image = new Image("File:/Users/bidribidi/IdeaProjects/Simulation/src/main/resources/images/entities/predator.png");
         } else if (entity instanceof Herbivore) {
-            System.out.println("Herbivore");
             image = new Image("File:/Users/bidribidi/IdeaProjects/Simulation/src/main/resources/images/entities/herbivore.png");
         } else if (entity instanceof Grass) {
-            System.out.println("Grass");
             image = new Image("File:/Users/bidribidi/IdeaProjects/Simulation/src/main/resources/images/entities/grass.png");
         } else if (entity instanceof Tree) {
-            System.out.println("Tree");
             image = new Image("File:/Users/bidribidi/IdeaProjects/Simulation/src/main/resources/images/entities/tree.png");
         } else {
-            System.out.println("Rock");
             image = new Image("File:/Users/bidribidi/IdeaProjects/Simulation/src/main/resources/images/entities/rock.png");
         }
-        imageView = new ImageView();
+
         imageView.setImage(image);
         imageView.setFitHeight(100);
         imageView.setFitWidth(100);
@@ -68,14 +63,12 @@ public class GameWindow extends StackPane implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Image image = new Image("File:/Users/bidribidi/IdeaProjects/Simulation/src/main/resources/images/entities/predator.png");
-        ImageView imageView = new ImageView();
-        imageView.setImage(image);
-        imageView.setFitHeight(35);
-        imageView.setFitWidth(35);
         gridPane.setGridLinesVisible(true);
-        System.out.println(imageView.getImage());
         simulation.startSimulation();
+        redrawMap();
+    }
+
+    private void redrawMap() {
         for (Entity entity: simulation.getMap().getEntities()) {
             if (entity != null) {
                 addImage(entity, entity.getCoordinates().getX(),
@@ -88,8 +81,6 @@ public class GameWindow extends StackPane implements Initializable {
         try {
             StackPane node = (StackPane) getNodeByRowColumnIndex(x, y);
             node.getChildren().add(getImageView(entity));
-            System.out.println("testing");
-            System.out.printf("X=%s, Y=%s%n", x, y);
         } catch (Exception e) {
             StackPane stackPane = new StackPane(getImageView(entity));
             GridPane.setConstraints(stackPane, x, y);

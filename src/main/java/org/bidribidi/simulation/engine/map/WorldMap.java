@@ -1,8 +1,6 @@
 package org.bidribidi.simulation.engine.map;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.bidribidi.simulation.engine.entities.Creature;
 import org.bidribidi.simulation.engine.entities.Entity;
 import org.bidribidi.simulation.engine.entities.Rock;
@@ -15,11 +13,14 @@ import java.util.stream.Stream;
 
 public class WorldMap {
 
+    private final static int HORIZONTAL_MAX_SIZE = 10;
+    private final static int VERTICAL_MAX_SIZE = 10;
+
     @Getter
     private static Map<Coordinates, List<Entity>> mapOfSimulation;
 
     public WorldMap() {
-        mapOfSimulation = new HashMap<>();
+        mapOfSimulation = generateEmptyMap();
     }
 
     public WorldMap(char[][] srcArray) {
@@ -32,6 +33,21 @@ public class WorldMap {
             }
         }
     }
+    private HashMap<Coordinates, List<Entity>> generateEmptyMap() {
+        HashMap<Coordinates, List<Entity>> map = new HashMap<>();
+        Random rand = new Random();
+
+        for (int i = 0; i < HORIZONTAL_MAX_SIZE; i++) {
+            for (int j = 0; j < VERTICAL_MAX_SIZE; j++) {
+                int n = rand.nextInt(100);
+                if (n > 70) {
+                    map.put(new Coordinates(i, j), new ArrayList<>());
+                }
+            }
+        }
+        return map;
+    }
+
 
     public static void addEntity(Coordinates coordinates, Entity entity) {
         mapOfSimulation.get(coordinates).add(entity);
